@@ -1,11 +1,15 @@
 import React from 'react';
+import SigninForm from './SigninForm';
 
 class SigninPage extends React.Component {
   render() {
     return (
 
-        <h1>Sign in Page</h1>
-
+        <div className="row">
+        	<div className="col-md-4 col-md-offset-4">
+        		<SigninForm />
+        	</div>
+        </div>
     );
   }
 }
