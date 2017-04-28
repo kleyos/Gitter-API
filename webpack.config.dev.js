@@ -22,9 +22,26 @@ export default {
         test: /\.js$/,
         include: [
           path.join(__dirname, 'client'),
-          path.join(__dirname, 'server/shared')
+          path.join(__dirname, 'server')
         ],
         loaders: [ 'react-hot', 'babel' ]
+      },
+       //CSS
+      {
+        test:   /\.css$/,
+        include: [
+          path.resolve(__dirname, "client"),
+        ],
+        loader: "style-loader!css-loader!postcss-loader"
+      },
+
+      //SCSS
+      {
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"],
+        include: [
+          path.resolve(__dirname, "client"),
+        ]
       }
     ]
   },

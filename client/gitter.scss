@@ -1,0 +1,90 @@
+.wrapper{
+	height: 100vh;
+	display: flex;
+  flex-direction: column;
+	position: relative;
+}
+
+nav{
+	height: 50px;
+	flex: 0 0 auto;
+}
+
+.home{
+		flex: 1 0 auto;
+		display: flex;
+}
+.menu{
+	margin-right: 20px;
+	flex: 0 0 auto;
+	&__item{
+		&:hover, 
+		&:first-child{
+			background-color: #f5f5f5;
+			cursor: pointer;
+		}
+
+	}
+}
+.user{
+		display: flex;
+		height: 48px;
+		img{
+			margin-right: 5px;
+		}
+	}
+.rooms{
+	img{
+		margin-right: 10px;
+	}
+}
+
+.chat{
+	flex: 1 0 auto;
+/*	height: 100%;
+*/	.room{
+		height: 48px;
+	}
+	.messages{
+		display: flex;
+		flex-direction: column;
+		/*height: 95%;*/
+		&__list{
+			flex: 1 0 auto;
+			overflow: auto;
+		}
+		&__post{
+			height: 15%;
+			flex: 0 0 auto;
+
+		}
+	}
+}
+
+
+.chat-item__container{
+	display:flex;
+	.chat-item__avatar{
+		margin-right: 15px;
+	}
+	.chat-item__content{
+			width:100%;
+		.chat-item__details{
+			display:flex;
+			justify-content: space-between;
+			color: grey;
+			.chat-item__from{
+				font-weight: bold;
+			}
+		}
+		.chat-item__text{
+			/*padding: 10px;
+			border: 1px solid lightgrey;
+			border-radius: 5px;*/
+		}
+	}
+}
+.post-form{
+	 flex: 0 0 auto;
+	 height: auto;
+}

@@ -2,10 +2,11 @@ import React from 'react';
 
 import { Link } from 'react-router';
 
-export default () => {
+class NavigationBar extends React.Component {
+  render() {
 	return(
 		<nav className="navbar navbar-default">
-			<div className="container-fluid">
+			<div className="container">
 				<div className="navbar-header">
 					<Link className="navbar-brand" to="/">Gi Cli</Link> 
 				</div>
@@ -18,4 +19,7 @@ export default () => {
 			</div>
 		</nav>
 		);
+	}
 }
+
+export default NavigationBar;
