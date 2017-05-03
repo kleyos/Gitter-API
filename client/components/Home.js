@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { Link } from 'react-router';
-import Search from './Search'
-import Conversations from './Conversations'
 import Room from './Room'
 
 import '../gitter.scss'
@@ -21,9 +19,46 @@ class Home extends React.Component {
     .then(responseJson =>this.props.getRooms(responseJson))   
   }
   
+  handleClick(room){
+    const token = 'a39d1e6785d4b4ae9ad1debd7a96301e15f72652';
+    this.props.clear();
+    this.props.getRoom(room);
+
+    fetch(`https://api.gitter.im/v1/rooms/${room.id}/chatMessages?access_token=${token}`)
+    .then(response => response.json() )
+    .then(responseJson =>this.props.getMessages(responseJson) );
+  }
+  
+  handlePressEnter(e){
+    if (e.key==='Enter') {
+        this.postMessage(this.props.room.item.id) 
+      }
+  }
+  
+  postMessage(roomId){
+
+    const headers = new Headers ({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": "Bearer a39d1e6785d4b4ae9ad1debd7a96301e15f72652"
+      });
+    const init = { 
+      method: 'POST',
+      headers,
+      body:JSON.stringify({text: this.props.room.message})
+      };
+    
+    fetch(`https://api.gitter.im/v1/rooms/${roomId}/chatMessages`, init)
+    .then(() => this.handleClick(this.props.room.item))
+    .catch( error => console.error(error)); 
+
+    this.props.clear();
+  }
+  
   render() {
     const messages = this.props.messages;
-    
+    const rooms = this.props.rooms;
+    const room = this.props.room;
     const miniPanel = 
       <nav className="minibar">
         <ul className="minibar__menu">
@@ -43,14 +78,97 @@ class Home extends React.Component {
           </li>
         </ul> 
       </nav>
+    
+    const conversationPanel = rooms
+      ? <section className="search">
+          <h4> ALL CONVERSATIONS </h4>
+          <ul className="rooms">
+              {rooms.map( (item,i) => 
+                <li className="rooms__item"
+                  key={i}
+                  onClick={this.handleClick.bind(this, item)}
+                >
+                  <Link to={`/home/${item.name}`}>
+                    { <img src={item.avatarUrl} width={25} height={25}/>}
+                    {item.name}
+                  </Link>
+                </li>)
+                }
+          </ul>
+        </section>
+      : false
+    
 
-    const child = this.props.children && React.cloneElement(this.props.children, {...this.props})
+    
+    const messageLi = messages 
+    ?  messages.map( (item, i) => 
+      <li className="chat__item" key={i}>
+       <div className="chat__item-container">
+         <div className="avatar">
+          <img  src={item.fromUser.avatarUrlSmall} 
+            width={25} height={25}/>
+         </div>
+         <div className="content">
+          <div className="details">
+            <div className="from">
+              {item.fromUser.displayName}
+              &nbsp;@
+              {item.fromUser.username}
+            </div>
+            <div className="time">
+              {item.sent}
+            </div>
+          </div>
+          <div className="text">
+           {item.text}
+          </div>
+          </div>
+        </div>
+       </li> )
+    : false
+  
+  const panelChat = rooms
+    ? <div className="chat">
+            <ul className="chat__list">
+              {messageLi}
+            </ul>
+      </div>  
+    : false
+  
+  const footer = 
+        <div className="form__post" >
+          <textarea className="form-control" 
+            value={this.props.room.message} 
+            onChange={(e) => this.props.typeMessage(e.target.value)}
+            onKeyPress={this.handlePressEnter.bind(this)}>
+          </textarea> 
+
+        </div>
+  
+  const roomHead = room.item 
+    ? <p className="room__name navbar-brand">
+        <img src={room.item.avatarUrl} width={25} height={25}/> 
+        {room.item.name} &nbsp; &nbsp;
+        <span className="topic">
+          {room.item.topic}
+        </span>
+      </p>
+    : false
+
+  const panelRoom = 
+    <section className="room">
+      {roomHead}
+      {panelChat}
+      {footer}
+    </section>
+
+  const child = this.props.children && React.cloneElement(this.props.children, {...this.props})
     return (
       
       <main className="home">
         {miniPanel}
-        <Conversations {...this.props}/>
-        {messages.length>0 ? <Room {...this.props} /> : false}
+        {conversationPanel}
+        {messages.length>0 ? panelRoom : false}
       </main>
    
     );
@@ -58,9 +176,5 @@ class Home extends React.Component {
 }
 
 export default Home;
-        //{roomPanel}
-        //
         //{React.cloneElement({...this.props}.children, {...this.props})}
-
         // <Search {...this.props}/>
-        // <Conversations {...this.props}/>

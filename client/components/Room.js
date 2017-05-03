@@ -3,18 +3,8 @@ import '../gitter.scss'
 
 class Room extends React.Component {    
   
-  // componentWillMount(){
-  //   const token = 'a39d1e6785d4b4ae9ad1debd7a96301e15f72652';
-    
-  //   //this.props.clear();
-  //   //this.props.getRoom(this.props.room);
-
-  //   fetch(`https://api.gitter.im/v1/rooms/${this.props.room.item.id}/chatMessages?access_token=${token}`)
-  //   .then(response => response.json() )
-  //   .then(responseJson =>this.props.getMessages(responseJson) );
-  // }
-  
   postMessage(roomId){
+    console.log(this)
     const headers = new Headers ({
       "Content-Type": "application/json",
       "Accept": "application/json",
@@ -27,7 +17,7 @@ class Room extends React.Component {
       };
     
     fetch(`https://api.gitter.im/v1/rooms/${roomId}/chatMessages`, init)
-    .then(() => this.handleClick(roomId))
+    //.then(() => this.handleClick(roomId))
     .catch( error => console.error(error)); 
 
     this.props.clear();
@@ -75,13 +65,13 @@ class Room extends React.Component {
     : false
   
   const footer = 
-        <div className="form__post">
+        <div className="form__post" >
           <textarea className="form-control" 
             value={this.props.room.message} 
             onChange={(e) => this.props.typeMessage(e.target.value)}>
           </textarea> 
           <button className="btn btn-info" 
-            onClick={this.postMessage.bind(this, this.props.room.id)}> 
+            onClick={this.postMessage.bind(this, this.props.room.item.id)}> 
             POST MESSAGE 
           </button>
         </div>
