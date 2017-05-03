@@ -1,12 +1,13 @@
-export function getRooms(room) {
+export function getRooms(rooms) {
 	return (dispatch) => {
 		dispatch({
 			type: 'GET_ROOMS', 
-			room
+			rooms
 		})
 	}
 }
 
-export function getRoomId(roomId) {
-	return { type: 'GET_ROOMID', roomId}
+export function getRoom(room) {
+	return { type: 'GET_ROOM', room}
 }
+

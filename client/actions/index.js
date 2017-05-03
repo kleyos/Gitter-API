@@ -1,4 +1,5 @@
 export { getUser } from './user';
-export { getRooms, getRoomId } from './rooms';
+export { getRooms, getRoom } from './rooms';
 export { getMessages, typeMessage } from './messages';
 export { clear } from './clear';
+export { findRooms } from './search';

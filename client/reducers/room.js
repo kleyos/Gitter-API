@@ -4,8 +4,8 @@ function room(state={}, action){
 		case 'NEW_MESSAGE':
 			return {...state, message:action.message} 
 
-		case 'GET_ROOMID':
-			return {...state, id:action.roomId} 
+		case 'GET_ROOM':
+			return {...state, item:action.room} 
 		
 		case 'CLEAR':
 			return {...state, message: ''}
