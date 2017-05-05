@@ -88,7 +88,7 @@ class Home extends React.Component {
                   key={i}
                   onClick={this.handleClick.bind(this, item)}
                 >
-                  <Link to={`/home/${item.name}`}>
+                  <Link to={`/home/${item.name}`} >
                     { <img src={item.avatarUrl} width={25} height={25}/>}
                     {item.name}
                   </Link>

@@ -6,7 +6,7 @@ import Greetings from './components/Greetings';
 import Home from './components/Home';
 import Room from './components/Room';
 
-import AuthPage from './components/auth/AuthPage'; 
+import AuthPage from './components/AuthPage'; 
 
 export default (
 	<Route path="/" component={App}>

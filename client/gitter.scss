@@ -10,8 +10,14 @@
 	margin-bottom: 0;
 	height: 50px;
 	flex: 0 0 auto;
+	.log__link{
+		display: inline-block;
+	}
 }
-
+.auth__form{
+	margin-top: 5%;
+	text-align: center;
+}
 .home{
 	display: flex;
 	max-height: calc(100% - 55px);

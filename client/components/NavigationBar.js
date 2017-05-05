@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 class NavigationBar extends React.Component {
   render() {
+	const user = this.props.user[0];
 	return(
 		<nav className="navbar navbar-default">
 			<div className="container-fluid">
@@ -12,8 +13,17 @@ class NavigationBar extends React.Component {
        </div>
 
 				<div className="collapse navbar-collapse">
-					<ul className="nav navbar-nav navbar-right">
-						<li><Link to="/signin">Sign in</Link></li>
+					<ul className="nav navbar-nav navbar-right log">
+						{user 
+							? <li className="log__item">
+									<img src={user.avatarUrlSmall} width={25} height={25}/> 
+									<span>{`HI ${user.username}!`}</span>
+									<a className="log__link" href='/logout'>Log Out</a>
+								</li>
+							: <li className="log__item"> 
+									<Link to="/signin" className="log__link">Log In</Link>
+								</li>
+						}
 					</ul>		
 				</div>
 				</div>
@@ -23,3 +33,6 @@ class NavigationBar extends React.Component {
 }
 
 export default NavigationBar;
+// <Link to="/" className="log__link">
+// 	<a href='/logout'>Log Out</a>
+// </Link>
